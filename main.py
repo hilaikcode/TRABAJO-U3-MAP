@@ -1,47 +1,54 @@
-#PROCEDIMIENTOS
+#DATOS PARA PODER AUTOMATIZAR EL PROCESO
+usuarios = [
+    {"nombre": "juan", "contraseña": "1234"},
+    {"nombre": "ana", "contraseña": "abcd"}
+]
 
-#PROCEDIMIENTO PEDIR CREDENCIALES
+inventario = [
+    {"titulo": "La dama de las camelias", "año": "1848"},
+    {"titulo": "Cumbres borroscosas", "año": "1847"}
+]
 
-usuarios = []
 
-def pedir_credenciales():
-    usuario = input("Ingrese su nombre de usuario: ")
-    contraseña = input("Ingrese su contraseña: ")
-    return usuario, contraseña
+# PROCEDIMIENTOS
 
-#PROCEDIMIENTO VERIFICAR CREDENCIALES
-def verificar_credenciales(usuario, contraseña):
-    for usuario in usuarios:
-        if usuario["nombre"] == usuario and usuario["contraseña"] == contraseña:
+def verificar_credenciales(nombre_usuario, contraseña):
+    for user in usuarios:
+        if user["nombre"] == nombre_usuario and user["contraseña"] == contraseña:
             return True
-    else:
-        return False
-    
-#PRCEDIMIENTO INGRESAR LIBROS
-def ingresar_libros():
-    titulo = input("Ingrese el título del libro: ")
-    año = input("Ingrese el año de publicación del libro: ")
-    libro = {"titulo": titulo, "año": año}
-    return libro
+    return False
 
-#PROCEDIMIENTO VERIFICAR LIBROS EN EL INVENTARIO
-def verificar_libros(libro, inventario):
+
+def verificar_libros(libro):
     for item in inventario:
         if item["titulo"] == libro["titulo"] and item["año"] == libro["año"]:
             return True
-    else:
-        return False
-    
-#FLUJO PRINCIPAL PROCESO
+    return False
+
+
+# FLUJO PRINCIPAL (AUTOMÁTICO)
+
 def main():
-    usuario, contraseña = pedir_credenciales()
+
+    # Simulación automática
+    usuario = "juan"
+    contraseña = "1234"
+
     if verificar_credenciales(usuario, contraseña):
         print("Credenciales válidas.")
-        libro = ingresar_libros()
-        inventario = [] 
-        if verificar_libros(libro, inventario):
-            print("El libro se encuentra disponible, está ubicado en: [ubicación del libro].")
+
+        libro = {"titulo": "Python Basico", "año": "2020"}
+
+        if verificar_libros(libro):
+            print("Libro disponible.")
         else:
-            print("El libro no se encuentra disponible para prestramo.")
+            raise Exception("Libro no disponible")
+    else:
+        raise Exception("Credenciales inválidas")
+
+
+if __name__ == "__main__":
+    main()
+    
 
 
